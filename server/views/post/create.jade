@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  header
+    +navbar-unresponsive('Post', '/')
+  main
+    .container
+      .section: form(action='', method='POST')
+        .row
+          .col.s12.l6
+            +input('title', "") Title
+            +textarea('body',  "") Body
+
+        hr
+        +submit Send

@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  header
+    +navbar-unresponsive('Post Revisions', '/')
+  main
+
+    #index-banner.section.no-pad-bot
+      .container
+        br
+    .container
+      .section: .row
+        each post_rev in post_revs
+          .col.s12
+            .card
+              .card-content
+                +marked(post_rev.body, post_rev.title)
+              .card-action
+                  // a.btn(href='/post/#{post.id}') Edit
+                  +button2('/post/'+post_rev.post_id) To Post
+                  //+button('/post_rev?post_id='+post.id) Revisions 4
+
+  +footer

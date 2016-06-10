@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  header
+    +navbar-unresponsive('Posts', '/')
+  main
+
+    #index-banner.section.no-pad-bot
+      .container
+        br
+        br
+        .row.center: a.btn-large(class=colorTwo, href='/post/create')
+          | Create
+    .container
+      .section: .row
+        each post in posts
+          .col.s12
+            .card
+              .card-content
+                +marked(post.body, post.title)
+                //code #{JSON.stringify(post)}
+              .card-action
+                  +button('/post/#{post.id}') Edit
+                  +button2("/post_rev/create?post_id="+post.id) Create Revision
+                  if post.post_revs && post.post_revs.length
+                    +button2('/post_rev?post_id='+post.id).darken-2 #{post.post_revs.length} Revisions
+
+  +footer

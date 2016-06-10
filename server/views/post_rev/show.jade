@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+  header
+    +navbar-unresponsive('Revision', '/')
+  main
+    style.
+    #index-banner.section.no-pad-bot
+      .container
+        br
+        br
+        .row.center: a.btn-large(class=colorTwo, href='/post/create')
+          | Create
+    .container
+      .section: .row
+        .col.s12
+          .card
+            .card-content: .row
+              pre.col.s12!= diff.diffChars(post_rev.post.body, post_rev.body, {ignoreWhitespace: true}).reduce(function(pr, nx) { return pr += "<span class='"+ (nx.added?"green":(nx.removed?"red":"grey.lighten-5")) +"' >" + nx.value + "</span>" }, '')
+              //pre.col.s6!= diff.diffChars(md(post_rev.post.body), md(post_rev.body), {newlineIsToken: true, ignoreWhitespace: true}).reduce(function(pr, nx) { return pr += "<span class='"+ (nx.added?"green":(nx.removed?"red":"grey.lighten-5")) +"' >" + nx.value + "</span>" }, '')
+            .card-action
+                // a.btn(href='/post/#{post.id}') Edit
+                +button("/post_rev/create?post_id=") accept
+                +button2('/post_rev?post_id=') reject
+                +button0('/post_rev?post_id=') back
+            .card-action
+            .card-content
+              +marked(post_rev.body, post_rev.title)
+            .card-action
+                // a.btn(href='/post/#{post.id}') Edit
+                +button("/post_rev/create?post_id=") accept
+                +button2('/post_rev?post_id=') reject
+                +button0('/post_rev?post_id=') back
+
+  +footer
